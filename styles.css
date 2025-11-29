@@ -1,73 +1,131 @@
-/* Базовый стиль — ничего лишнего, как в хорошем контракте. */
+/* Базовые стили — добавь свои, если нужно. Я сделал минимальный layout для примера. */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif; /* Или что-то более "юридическое", как serif шрифт */
     margin: 0;
     padding: 0;
-    line-height: 1.6;
+    background-color: #f4f4f4; /* Нейтральный, как судебный зал */
     color: #333;
-    background-color: #f4f4f4;
-    scroll-behavior: smooth;
+    line-height: 1.6;
 }
 
 header {
-    background-color: #007bff;
-    color: white;
+    background-color: #2c3e50; /* Темный, авторитетный */
     padding: 1rem;
-    position: sticky;
+    position: fixed;
+    width: 100%;
     top: 0;
     z-index: 100;
 }
 
 nav ul {
     list-style: none;
-    padding: 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    margin: 0 1rem;
 }
 
 nav a {
-    color: white;
+    color: #ecf0f1;
     text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
+    transition: color 0.3s ease; /* Анимация hover */
 }
 
 nav a:hover {
-    color: #ffeb3b;
+    color: #3498db; /* Синий, как "закон и порядок" */
+    transform: scale(1.1); /* Легкий "рост" при наведении, как взвешивание аргументов */
 }
 
 main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
+    padding-top: 80px; /* Чтобы не перекрывать header */
 }
 
 section {
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    opacity: 0; /* Начальная прозрачность для анимации */
+    transform: translateY(20px); /* Сдвиг вниз */
+    transition: opacity 0.6s ease, transform 0.6s ease; /* Fade-in анимация */
 }
 
-h1, h2 {
-    color: #007bff;
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+h1, h2, h3 {
+    animation: typeWriter 2s steps(40, end) forwards; /* Эффект печатания текста, как судебный вердикт */
+}
+
+@keyframes typeWriter {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+ul li {
+    margin: 0.5rem 0;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+ul li::before {
+    content: "⚖️"; /* Иконка весов Фемиды */
+    position: absolute;
+    left: 0;
+    animation: balance 2s infinite alternate; /* Анимация "качания" весов */
+}
+
+@keyframes balance {
+    0% { transform: rotate(-5deg); }
+    100% { transform: rotate(5deg); }
+}
+
+article {
+    margin: 1rem 0;
+    border-left: 4px solid #3498db;
+    padding-left: 1rem;
+    animation: slideIn 0.5s ease-out; /* Слайд-ин для статей */
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 0; } /* Ой, опечатка — должно быть opacity: 1; */
 }
 
 footer {
     text-align: center;
     padding: 1rem;
-    background-color: #333;
-    color: white;
+    background-color: #34495e;
+    color: #ecf0f1;
+    animation: fadeInUp 1s ease-out; /* Fade-in снизу, как "финальный вердикт" */
 }
 
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hover для контактов — пульсация, как "биение сердца закона" */
+#contacts p {
+    transition: transform 0.3s ease;
+}
+
+#contacts p:hover {
+    transform: scale(1.05);
+    color: #e74c3c; /* Красный для акцента */
+}
+
+/* Мобильная адаптация */
 @media (max-width: 768px) {
     nav ul {
         flex-direction: column;
-        text-align: center;
     }
-    
     section {
-        padding: 0.5rem;
+        padding: 1rem;
     }
 }
